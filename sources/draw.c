@@ -1,5 +1,3 @@
-#include <ncurses.h>
-
 #include "../headers/draw.h"
 
 void init_curses() {
@@ -12,13 +10,15 @@ void init_curses() {
     init_pair(3, COLOR_BLUE, COLOR_YELLOW);         // litera pe poz gresita
     init_pair(4, COLOR_WHITE, COLOR_BLACK);         // litera incorecta
     init_pair(10, COLOR_RED, COLOR_BLACK);          // cuvant invalid
-    curs_set(0);                                    // cursor invizibil
+    curs_set(0);
 }
 
 void uninit_curses() {
     endwin();
 }
 
+/*  creaza o fereastra de inaltime HEADER_HEIGHT in partea de sus a
+    terminalului in care se afla titlul WORDLE scris ca ASCII ART */
 void init_header() {
     WINDOW *header = newwin(HEADER_HEIGHT, TERMINAL_WIDTH, 0, 0);
     wattron(header, COLOR_PAIR(1));
@@ -30,6 +30,8 @@ void init_header() {
     wrefresh(header);
 }
 
+/*  functia afiseaza in fereastra 'footer' una dintre cele 2 erori.
+    parametrul state trebuie sa fie 1 sau 2 in functie de eroarea dorita */
 void footer_error(WINDOW *footer, int state) {
     wattron(footer, COLOR_PAIR(10));
     switch (state) {
@@ -44,6 +46,10 @@ void footer_error(WINDOW *footer, int state) {
     wrefresh(footer);
 }
 
+/*  functia afiseaza in fereastra 'footer' o intrebare legata de continuarea
+    jocului. Aceasta citeste inputul userului si se ocupa de eventualele
+    inputuri gresite. In final returneaza 1 daca se doreste continuarea
+    jocului sau 0 in caz contrar */
 int footer_playagain(WINDOW *footer) {
     int result;
     do {
@@ -58,8 +64,7 @@ int footer_playagain(WINDOW *footer) {
         } else {
             werase(footer);
             footer_error(footer, 2);
-            napms(1000);                // afisam pentru 1 secunda eroarea
-            // to do opreste userul din a scrie prea multe caractere cat timp doarme procesul
+            napms(1000);
         }
     } while (result != '0' && result != '1');
 }

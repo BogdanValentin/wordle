@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ncurses.h>
+
 #define TERMINAL_HEIGHT 20
 #define TERMINAL_WIDTH  40
 
