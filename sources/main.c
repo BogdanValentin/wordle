@@ -9,8 +9,13 @@ int main()
     init_header();
     WINDOW *footer = newwin(FOOTER_HEIGHT, TERMINAL_WIDTH, TERMINAL_HEIGHT - 1, 0);
     do {
+        werase(footer);
+        wrefresh(footer);
         char *word = malloc(6 * sizeof(char));
-        init_mainwindow(word);
+        pick_word(word);
+
+        init_mainwindow(footer, word);
+
         free(word);
     } while(footer_playagain(footer) == 1);
     
