@@ -69,7 +69,22 @@ int footer_playagain(WINDOW *footer) {
     } while (result != '0' && result != '1');
 }
 
-void init_mainwindow() {
+/*  functia genereaza un numar aleatoriu 'random_int' intre 0 si WORDCOUNT
+    si returneaza prin parametrul 'word' cuvantul de pe linia 'random_int'*/
+void pick_word(char *word) {
+    srand(time(0));
+    int random_int = rand() % WORDCOUNT;
+    FILE *file = fopen("../cuvinte.txt", "rt");
+    fseek(file, random_int * 7, 0);
+    fscanf(file, "%s", word);
+    fclose(file);
+}
 
+void init_mainwindow(char *word) {
+    WINDOW *mainwindow = newwin(MAINWINDOW_HEIGHT, TERMINAL_WIDTH, HEADER_HEIGHT, 0);
+    wattron(mainwindow, COLOR_PAIR(1));
+    
+    wattroff(mainwindow, COLOR_PAIR(1));
+    wrefresh(mainwindow);
 }
 

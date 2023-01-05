@@ -7,11 +7,12 @@ int main()
 {
     init_curses();
     init_header();
-    WINDOW *footer = newwin(FOOTER_HEIGHT, TERMINAL_WIDTH, TERMINAL_HEIGHT - 1, 0); // init footer
-    int play_again;
+    WINDOW *footer = newwin(FOOTER_HEIGHT, TERMINAL_WIDTH, TERMINAL_HEIGHT - 1, 0);
     do {
-        play_again = footer_playagain(footer);
-    } while(play_again == 1);
+        char *word = malloc(6 * sizeof(char));
+        init_mainwindow(word);
+        free(word);
+    } while(footer_playagain(footer) == 1);
     
     uninit_curses();
     return 0;
