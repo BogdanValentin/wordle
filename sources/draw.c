@@ -33,12 +33,12 @@ void init_header() {
 
 void init_rules(WINDOW *mainwindow) {
     wattron(mainwindow, COLOR_PAIR(1));
-    mvwprintw(mainwindow,  3, 16, "Legenda:");
+    mvwprintw(mainwindow,  3, 16, "Legenda fundal:");
     mvwprintw(mainwindow,  4, 16, "- verde: litera exista");
     mvwprintw(mainwindow,  5, 16, "si e pe poz. buna");
     mvwprintw(mainwindow,  6, 16, "- galben: litera exista");
     mvwprintw(mainwindow,  7, 16, "dar nu e pe poz. buna");
-    mvwprintw(mainwindow,  8, 16, "- galben: litera nu");
+    mvwprintw(mainwindow,  8, 16, "- negru: litera nu");
     mvwprintw(mainwindow,  9, 16, "exista in cuvant");
     mvwprintw(mainwindow, 11, 16, "- apasati ':' pentru");
     mvwprintw(mainwindow, 12, 16, " a iesi sau restart");
