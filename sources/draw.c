@@ -22,17 +22,17 @@ void uninit_curses() {
     terminalului in care se afla titlul WORDLE scris ca ASCII ART */
 void init_header() {
     WINDOW *header = newwin(HEADER_HEIGHT, TERMINAL_WIDTH, 0, 0);
-    wattron(header, COLOR_PAIR(1));
+    wattron(header, COLOR_PAIR(1) | A_BOLD);
     mvwprintw(header, 0, 0, "   _ _ _ _____ _____ ____  __    _____ ");
     mvwprintw(header, 1, 0, "  | | | |     | __  |    \\|  |  |   __|");
     mvwprintw(header, 2, 0, "  | | | |  |  |    -|  |  |  |__|   __|");
     mvwprintw(header, 3, 0, "  |_____|_____|__|__|____/|_____|_____|");
-    wattroff(header, COLOR_PAIR(1));
+    wattroff(header, COLOR_PAIR(1) | A_BOLD);
     wrefresh(header);
 }
 
 void init_rules(WINDOW *mainwindow) {
-    wattron(mainwindow, COLOR_PAIR(1));
+    wattron(mainwindow, COLOR_PAIR(1) | A_BOLD);
     mvwprintw(mainwindow,  3, 16, "Legenda fundal:");
     mvwprintw(mainwindow,  4, 16, "- verde: litera exista");
     mvwprintw(mainwindow,  5, 16, "si e pe poz. buna");
@@ -42,13 +42,13 @@ void init_rules(WINDOW *mainwindow) {
     mvwprintw(mainwindow,  9, 16, "exista in cuvant");
     mvwprintw(mainwindow, 11, 16, "- apasati ':' pentru");
     mvwprintw(mainwindow, 12, 16, " a iesi sau restart");
-    wattroff(mainwindow, COLOR_PAIR(1));
+    wattroff(mainwindow, COLOR_PAIR(1) | A_BOLD);
 }
 
 /*  afiseaza in fereastra 'footer' unul dintre cele 5 mesaje.
     parametrul state trebuie sa fie intre 0 si 4 in functie de mesajul dorit */
 void print_footer(WINDOW *footer, int state) {
-    wattron(footer, COLOR_PAIR(10));
+    wattron(footer, COLOR_PAIR(10) | A_BOLD);
     switch (state) {
     case 0:
         mvwprintw(footer, 0, 0, "Caracter invalid.");
@@ -60,15 +60,15 @@ void print_footer(WINDOW *footer, int state) {
         mvwprintw(footer, 0, 0, "Alegere invalida.");
         break;
     case 3:
-        wattron(footer, COLOR_PAIR(1));
+        wattron(footer, COLOR_PAIR(1) | A_BOLD);
         mvwprintw(footer, 0, 0, "Doriti sa jucati iar? (1/0)");
-        wattroff(footer, COLOR_PAIR(1));
+        wattroff(footer, COLOR_PAIR(1) | A_BOLD);
         break;
     case 4:
         mvwprintw(footer, 0, 0, "Iesire / Joc nou (1/2)");
         break;
     }
-    wattroff(footer, COLOR_PAIR(10));
+    wattroff(footer, COLOR_PAIR(10) | A_BOLD);
     wrefresh(footer);
 }
 
@@ -106,7 +106,7 @@ void pick_word(char *word) {
 
 /*  afiseaza placeholderele literelor('_') pe cele 6 linii */
 void draw_lines(WINDOW *mainwindow) {
-    wattron(mainwindow, COLOR_PAIR(1));
+    wattron(mainwindow, COLOR_PAIR(1) | A_BOLD);
     for(int j = 0; j < 6; j++) {
         wmove(mainwindow, 4 + j, 3);
         for(int i = 0; i < 5; i++) {
@@ -116,14 +116,14 @@ void draw_lines(WINDOW *mainwindow) {
             }
         }
     }
-    wattroff(mainwindow, COLOR_PAIR(1));
+    wattroff(mainwindow, COLOR_PAIR(1) | A_BOLD);
 }
 
 /*  afiseaza literele pe */
 int guess_word(WINDOW *mainwindow, WINDOW *footer, char *word, int line) {
     char written_word[5];
     int buffer, count = 0;
-    wattron(mainwindow, COLOR_PAIR(1));
+    wattron(mainwindow, COLOR_PAIR(1) | A_BOLD);
     while(count < 6) {
         buffer = wgetch(mainwindow);
         // 127 e backspace si 10 e enter
@@ -170,17 +170,17 @@ int guess_word(WINDOW *mainwindow, WINDOW *footer, char *word, int line) {
             }
         }
     }
-    wattroff(mainwindow, COLOR_PAIR(1));
+    wattroff(mainwindow, COLOR_PAIR(1) | A_BOLD);
     for(int i = 0; i < 5; i++) {
         if(word[i] == written_word[i]) {
             wattron(mainwindow, COLOR_PAIR(2));
         } else if (strchr(word, written_word[i]) != NULL) {
             wattron(mainwindow, COLOR_PAIR(3));
         } else {
-            wattron(mainwindow, COLOR_PAIR(4));
+            wattron(mainwindow, COLOR_PAIR(4) | A_BOLD);
         }
         mvwprintw(mainwindow, 3 + line, 3 + 2 * i, "%c", written_word[i] - 32);
-        wattroff(mainwindow, COLOR_PAIR(2) | COLOR_PAIR(3) | COLOR_PAIR(4));
+        wattroff(mainwindow, COLOR_PAIR(2) | COLOR_PAIR(3) | COLOR_PAIR(4) | A_BOLD);
     }
     if(strcmp(word, written_word) == 0) {
         return 1;
