@@ -17,6 +17,8 @@
 
 #define WORDCOUNT 50
 
+#define COLOR_GREY 8
+
 void init_curses();
 
 void uninit_curses();

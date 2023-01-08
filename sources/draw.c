@@ -8,7 +8,8 @@ void init_curses() {
     init_pair(1, COLOR_CYAN, COLOR_BLACK);          // default text color
     init_pair(2, COLOR_BLACK, COLOR_GREEN);         // litera pe poz corecta
     init_pair(3, COLOR_BLACK, COLOR_YELLOW);        // litera pe poz gresita
-    init_pair(4, COLOR_CYAN, COLOR_BLACK);          // litera incorecta
+    init_color(COLOR_GREY, 200, 200, 200);
+    init_pair(4, COLOR_WHITE, COLOR_GREY);          // litera incorecta
     init_pair(10, COLOR_RED, COLOR_BLACK);          // cuvant invalid
     init_pair(11, COLOR_GREEN, COLOR_BLACK);        // game win
     curs_set(0);
@@ -38,7 +39,7 @@ void init_rules(WINDOW *mainwindow) {
     mvwprintw(mainwindow,  5, 16, "si e pe poz. buna");
     mvwprintw(mainwindow,  6, 16, "- galben: litera exista");
     mvwprintw(mainwindow,  7, 16, "dar nu e pe poz. buna");
-    mvwprintw(mainwindow,  8, 16, "- negru: litera nu");
+    mvwprintw(mainwindow,  8, 16, "- gri: litera nu");
     mvwprintw(mainwindow,  9, 16, "exista in cuvant");
     mvwprintw(mainwindow, 11, 16, "- apasati ':' pentru");
     mvwprintw(mainwindow, 12, 16, " a iesi sau restart");
